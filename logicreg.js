@@ -141,7 +141,7 @@ if(diaIni.length==0 || diaIni>=32 || mesIni.length==0 || diaFin.length==0 || dia
     asignation("mesFin","");
     alert("Favor de completar los campos solicitados con informacion correcta");
     inHTML('loadTable',"");
-}else{
+}else{ if(mesIni != mesFin){
 inHTML('loadTable',"");
 for(let i=diaIni;i<=consulta1.length;i++){
 var reference = db.ref(`registros/`+`${i}-`+mesIni+`/`);
@@ -165,6 +165,20 @@ for(let j=0;j<=diaFin;j++){
                
     });
     }
+}else{
+    inHTML('loadTable',"");
+    for(let i=diaIni;i<=diaFin;i++){
+    var reference = db.ref(`registros/`+`${i}-`+mesIni+`/`);
+    reference.on('value',function(datas){
+        var data = datas.val();
+        $.each(data, function(nodo, value) {
+                var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+                printHTML('loadTable',sendData);
+        });
+               
+    });
+    }
+}
     update.disabled = false;
     asignation("diaIni","");
     asignation("mesIni","");

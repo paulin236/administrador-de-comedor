@@ -1,0 +1,244 @@
+
+
+  /* POPPINS FONT */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+*{
+    font-family: 'Poppins', sans serif;
+}
+body{
+    background-image: url("files/4.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+.container1{
+  display: flex;
+}
+.box{
+  display: flex;
+}
+.container{
+  width: 400px;
+  display: flex;
+  flex-direction:column;
+  padding: 0 10px 0 10px;
+}
+.nav .header{
+    background-image: url("files/4.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    text-align: center;
+}
+.header {
+  background-size: cover;
+  min-height: 10vh;
+}
+header {
+    background-image: url("files/4.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    color: #ffffff;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 10px 0;
+  }
+  
+  nav {
+    float: left;
+  }
+  
+  nav ul {
+    list-style: none;
+    overflow: hidden; 
+  }
+  
+  nav ul li {
+    float: left;
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+  }
+  nav ul li a {
+    display: block;
+    padding: 10px;
+    color: #ffffff;
+    text-decoration: none;
+  }
+  nav ul li:hover {
+    background: #eca023;
+  }
+.box{
+    display: inline;
+    margin-top:100cm;
+}
+.container{
+    display: inline;
+    text-align: center;
+}
+span{
+    color: #ffffff;
+    font-size:medium;
+    display: flex;
+    justify-content: center;
+    padding: 10px 0 10px 0;
+}
+.input-field{
+  display: flex;
+  flex-direction: column;
+}
+.input-field .input{
+  height: 45px;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: 30px;
+  color: #ffffffcd;
+  padding: 0 0 0 42px;
+  background: rgba(120, 120, 120, 0.667);
+}
+.input:hover {
+  background-color: #c7c7c7ba;
+}
+i{
+  position: relative;
+  top: -31px;
+  left: 10px;
+  color: #ffffff;
+  width: 20px;  /* Ancho del icono */
+  height: 20px; /* Alto del icono */
+}
+::-webkit-input-placeholder{
+  color: #ffffffe0;
+}
+.submit{
+  border: none;
+  border-radius: 30px;
+  font-size: 15px;
+  height: 45px;
+  outline: none;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.838);
+  cursor: pointer;
+  transition: .3s;
+}
+.submit:hover{
+  box-shadow: 2px 5px 7px 2px rgb(255, 255, 255);
+}
+.bottom{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: small;
+  color: #fff;
+  margin-top: 10px;
+}
+.left{
+  display: flex;
+}
+label a{
+  color: #000000;
+  text-decoration: none;
+}
+
+ul li .white{color: #ffffff;}
+.red {color: rgb(208, 37, 37);}
+.blue{color: rgb(0, 196, 163);}
+   
+  tr:nth-child(even) {
+    background-color: #f2f2f2
+  }
+  .custom-table {
+    width: 120%; /* Ajusta el ancho de la tabla al 100% del contenedor */
+    max-width: 1800px; /* Ancho máximo de la tabla */
+    height: auto; /* Ajusta automáticamente la altura de acuerdo al contenido */
+    border: 2px solid #000; /* Borde de la tabla */
+    border-spacing: 0; /* Elimina los espacios entre celdas */
+    background-color: #f9f9f9; /* Color de fondo de la tabla */
+}
+.custom-table-admin {
+  width: 90%; /* Ajusta el ancho de la tabla al 100% del contenedor */
+  max-width: 1800px; /* Ancho máximo de la tabla */
+  height: auto; /* Ajusta automáticamente la altura de acuerdo al contenido */
+  border: 2px solid #000; /* Borde de la tabla */
+  border-spacing: 0; /* Elimina los espacios entre celdas */
+  background-color: #f9f9f9; /* Color de fondo de la tabla */
+}
+
+.custom-table th, .custom-table td {
+    padding: 3px; /* Espaciado interno de las celdas */
+    text-align: left; /* Alineación del texto */
+    font-size: 11px; /* Tamaño de la fuente */
+    border-bottom: 1px solid #000000; /* Línea divisoria entre filas */
+}
+
+.custom-table th {
+    background-color: #0b1337; /* Fondo del encabezado */
+    color: white; /* Color del texto del encabezado */
+}
+.custom-table-admin th {
+  background-color: #0b1337; /* Fondo del encabezado */
+  color: white; /* Color del texto del encabezado */
+}
+
+.custom-table tbody tr:hover {
+    background-color: #f1f1f1; /* Color de fondo cuando pasas el ratón sobre la fila */
+}
+.custom-table-admin tbody tr:hover {
+  background-color: #f1f1f1; /* Color de fondo cuando pasas el ratón sobre la fila */
+}
+
+.top-header {
+    text-align: center; /* Centra el encabezado */
+    font-size: 4px; /* Tamaño de la fuente del encabezado */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+select {
+    /*A reset of styles, including removing the default dropdown arrow*/
+    appearance: none;
+    /* Additional resets for further consistency*/
+    background: rgb(255, 255, 255);
+    color: #818181;
+    border: 1px solid rgb(207, 207, 207);
+    border-radius: 0em;
+    padding: 0.5rem 0.5rem 0.5rem 0.5rem;
+    margin: 0;
+    width: 100%;
+    font-family: Arial;
+    font-size: 1.1rem;
+    cursor: pointer;
+    line-height:normal;
+  }
+
+  .select select:hover{
+	background: #29292977;
+}
+.search-container {
+  display: flex; /* Activar flexbox */
+  justify-content: center; /* Centrar horizontalmente */
+  margin-bottom: 10px; /* Espaciado inferior */
+}
+#searchInput {
+  width: 50%; /* La barra ocupará todo el ancho disponible */
+  padding: 8px 15px; /* Espaciado interno */
+  margin-bottom: 12px; /* Espaciado inferior para separar de la tabla */
+  border: 1px solid #ddd; /* Borde gris claro */
+  border-radius: 4px; /* Bordes redondeados */
+  font-size: 11px; /* Tamaño de fuente */
+  background-color: #b1b1b1;
+}
+.quantity input {
+  width: 80px;
+  height: 42px;
+  float: left;
+  display:flex;
+  padding: 0;
+  margin: 0;
+  padding-left: 20px;
+  border: 1px solid #eee;
+}

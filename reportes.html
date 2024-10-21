@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Reporte comedor</title>
+</head>
+
+<body>
+    <header class="header">
+        <h1  >Reporte comedor</h1>
+        <!--<img src="cdac.png">-->
+        <nav class="nav">
+          <ul>
+            <li><a href="administrador.html">Administrador</a></li>
+            <li><a href="reportes.html">Reportes</a></li>
+         </ul>
+        </nav>
+    </header>
+
+    
+
+    <div class="box">
+        <div class="container">
+            <div class="top-header">
+                <header>Reporte mensual</header>
+                <button type="button" id="generateReportButton" class="btn btn-primary" onclick="resumir()">
+                    Generar reporte
+                </button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalConsulta" onclick="Consulta()">
+                        Consulta
+                    </button>
+            </div>
+            
+
+            <div class="box">
+                <div class="col-lg-10">
+                    
+         <nav class="nav">
+            
+            <ul>
+              <li><a href="#" onclick="onclickEnero()">Enero</a></li>
+              <li><a href="#" onclick="onclickFebrero()">Febrero</a></li>
+              <li><a href="#" onclick="onclickMarzo()">Marzo</a></li>
+              <li><a href="#" onclick="onclickAbril()">Abril</a></li>
+              <li><a href="#" onclick="onclickMayo()">Mayo</a></li>
+              <li><a href="#" onclick="onclickJunio()">Junio</a></li>
+              <li><a href="#" onclick="onclickJulio()">Julio</a></li>
+              <li><a href="#" onclick="onclickAgosto()">Agosto</a></li>
+              <li><a href="#" onclick="onclickSeptiembre()">Septiembre</a></li>
+              <li><a href="#" onclick="onclickOctubre()">Octubre</a></li>
+              <li><a href="#" onclick="onclickNoviembre()">Noviembre</a></li>
+              <li><a href="#" onclick="onclickDiciembre()">Diciembre</a></li>
+           </ul>
+           
+          </nav>
+                    <div class="form-group" id="update">
+                        <table class="table custom-table" id="tabla1">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th >Usuario</th>
+                                    <th >Nombre</th>
+                                    <th >Area</th>
+                                    <th >Hora de registro</th>
+                                    <th >Descuento</th>
+                                    <th >Costo</th>
+                                    <th >Asistencia</th>
+                                    <th >Total</th>
+                                </tr>
+                            </thead>
+                            <tbody id="loadTable"></tbody>
+                        </table>
+                    </div>
+                    <button onclick="exportTableToExcel('tabla1', 'Reporte del comedor')">Exportar a Excel</button>
+                </div>
+                    
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal Consulta -->
+    <div class="modal fade" id="modalConsulta" tabindex="-1" role="dialog" aria-labelledby="modalTask" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalConsulta">Fecha a Consultar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                                <div id="consulta"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" onclick="onClickConsulta()" >Consultar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+    <script src="firebase.js"></script>
+    <script src="logicreg.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7"
+        crossorigin="anonymous"></script>
+</body>
+</html>

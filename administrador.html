@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <title>Administrador de usuarios</title>
+</head>
+
+<body>
+    <header class="header">
+        <h1>Administrador de usuarios</h1>
+        <!--<img src="cdac.png">-->
+        <nav class="nav">
+          <ul>
+            <li><a href="administrador.html">Administrador</a></li>
+            <li><a href="reportes.html">Reportes</a></li>
+         </ul>
+        </nav>
+    </header>
+
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalAdd">
+                        Añadir nuevo usuario
+                    </button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" onclick="modalUserAdmin()" data-target="#modalAdmin">
+                        Añadir nuevo administrador
+                    </button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" onclick="onclickModalUpdatePrecio()" data-target="#modalPrecioComida">
+                        Actualizar costo de comida
+                    </button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" onclick="onclickModalUpdateUMA()" data-target="#modalUMA">
+                        Actualizar UMA
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <hr>
+            </div>
+        </div>
+        <div class="box">
+                    <div class="search-container">
+                        <input class="inpSearch" type="text" id="searchInput" onkeyup="searchTable()" placeholder="Buscar por nombre...">
+                    </div>
+            <div class="col-lg-10">
+                <div class="form-group">
+                    <table class="table custom-table" id="reportes">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Usuario</th>
+                                <th>Nombre</th>
+                                <th>Clave</th>
+                                <th>Area</th>
+                                <th>Fecha de registro</th>
+                                <th>Editar</th>
+                                <th>Eliminar</th>
+                                <th>Agregar registro</th>
+                            </tr>
+                        </thead>
+                        <tbody id="loadTable"></tbody>
+                    </table>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- Modal Edit -->
+    <div class="modal fade" id="modalEdit" tabindex="-1" role="dialog" aria-labelledby="modalTask" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalEdit">Editar usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                                <div id="editData"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" onclick="onClickUpdate()" id="update">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal insert reg -->
+    <div class="modal fade" id="modalInsertReg" tabindex="-1" role="dialog" aria-labelledby="modalTask" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalInsertReg">Agregar registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                                <div id="InsertReg"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" onclick="onclickInserReg()" id="update">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Add-->
+    <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="modalTask" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAdd">Crear usuario</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" id="user" class="form-control" placeholder="Usuario">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" onclick="generateRandom('user')">Generar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="text" id="nombre" class="form-control" placeholder="Nombre">
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input type="text" id="clave" class="form-control" placeholder="Clave">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" type="button" onclick="generateRandom('clave')">Generar</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <select id="area">
+                            <option value=''>Seleccione el area</option>
+                            <option >Almacén</option>
+                            <option >Logistica</option>
+                            <option >Produccion</option>
+                            <option >Mantenimiento General</option>
+                            <option >Bascula</option>
+                            <option >Calidad</option>
+                            <option >Seguridad Industrial</option>
+                            <option >Calcinacion</option>
+                            <option >Activo Fijo</option>
+                            <option >Compras</option>
+                            <option >Talento</option>
+                            <option >Finanzas</option>
+                            <option >Operaciones</option>
+                            <option >Ecología y Medio Ambiente</option>
+                            <option >Tecnologías de la Información</option>
+                            <option >Preliquidación</option>
+                            <option >Recursos Humanos</option>
+                            <option >Practicante</option>
+                            <option >Visitante</option>
+                          </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" onclick="onClickInsert()">Guaradar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Admin-->
+    <div class="modal fade" id="modalAdmin" tabindex="-1" role="dialog" aria-labelledby="modalTask" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalAdmin">Crear usuario administrador</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="adminModal"></div>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" onclick="onClickInsertAdmin()">Guaradar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal PrecioComida-->
+    <div class="modal fade" id="modalPrecioComida" tabindex="-1" role="dialog" aria-labelledby="modalTask" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalPrecioComida">Actualizar costo de comida</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                                <div id="precioActual"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" onclick="onClickUpdatePrecio()" id="update">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal UMA-->
+    <div class="modal fade" id="modalUMA" tabindex="-1" role="dialog" aria-labelledby="modalTask" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalUMA">Actualizar UMA</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                                <div id="UMAActual"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" onclick="onClickUpdateUMA()" id="update">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Fecha-->
+    <div class="modal fade" id="modalFecha" tabindex="-1" role="dialog" aria-labelledby="modalTask" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modalFecha">Fecha del registro</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                                <div id="Fecha"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-success" onclick="insertReg()" id="update">Actualizar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+        crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.8.2/firebase.js"></script>
+    <script src="firebase.js"></script>
+    <script src="logicadmin.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.7.1/js/all.js" integrity="sha384-eVEQC9zshBn0rFj4+TU78eNA19HMNigMviK/PU/FFjLXqa/GKPgX58rvt5Z8PLs7"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

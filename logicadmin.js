@@ -1,4 +1,9 @@
 var db = firebase.database();
+function obtenerValorAleatorio(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+let i = obtenerValorAleatorio(50, 999);
+
 
 var update = document.getElementById('update');
 update.disabled = true;
@@ -29,7 +34,7 @@ function dateActualityReg(){
 }
 function hourReg(){
     var fh = new Date();
-    return fh.getHours()+":"+fh.getMinutes()+":"+fh.getSeconds();
+    return fh.getHours()+":"+fh.getMinutes();
 }
 function onClickLogin(){
     var user = value("user");
@@ -102,7 +107,8 @@ function insertReg(){
     }else
         if(area=='Practicante' || area=='Visitante'){
     descuento = 0;
-    db.ref('registros/'+dia+'-'+mes+'/'+hourReg()).set({
+    i--;
+    db.ref('registros/'+dia+'-'+mes+'/'+i).set({
         user:user,
         nombre:nombre,
         area:area,
@@ -118,7 +124,8 @@ function insertReg(){
     asignation("are","");
     asignation("usuario","");
         }else{
-            db.ref('registros/'+dia+'-'+mes+'/'+hourReg()).set({
+            i--;
+            db.ref('registros/'+dia+'-'+mes+'/'+i).set({
                 user:user,
                 nombre:nombre,
                 area:area,

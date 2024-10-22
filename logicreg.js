@@ -195,7 +195,7 @@ var reference = db.ref(`registros/`+`${i}-1/`);
 reference.on('value',function(datas){
     var data = datas.val();
     $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
     });
            
@@ -209,7 +209,7 @@ var reference = db.ref(`registros/`+`${i}-2/`);
 reference.on('value',function(datas){
     var data = datas.val();
     $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
     });
            
@@ -223,7 +223,7 @@ var reference = db.ref(`registros/`+`${i}-3/`);
 reference.on('value',function(datas){
     var data = datas.val();
     $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
     });
            
@@ -237,7 +237,7 @@ var reference = db.ref(`registros/`+`${i}-4/`);
 reference.on('value',function(datas){
     var data = datas.val();
     $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTableAbril',sendData);
     });
            
@@ -251,7 +251,7 @@ var reference = db.ref(`registros/`+`${i}-5/`);
 reference.on('value',function(datas){
     var data = datas.val();
     $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
     });
            
@@ -265,7 +265,7 @@ var reference = db.ref(`registros/`+`${i}-6/`);
 reference.on('value',function(datas){
     var data = datas.val();
     $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
     });
            
@@ -279,7 +279,7 @@ var reference = db.ref(`registros/`+`${i}-7/`);
 reference.on('value',function(datas){
     var data = datas.val();
     $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTableJulio',sendData);
     });
            
@@ -293,7 +293,7 @@ var reference = db.ref(`registros/`+`${i}-8/`);
 reference.on('value',function(datas){
     var data = datas.val();
     $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
     });   
 });
@@ -306,7 +306,7 @@ var reference = db.ref(`registros/`+`${i}-9/`);
 reference.on('value',function(datas){
     var data = datas.val();
     $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
     });
 });
@@ -320,7 +320,7 @@ var reference = db.ref(`registros/`+`${i}-10/`);
 reference.on('value',function(datas){
     var data = datas.val();
     $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
     });
            
@@ -334,7 +334,7 @@ var reference = db.ref(`registros/`+`${i}-11/`);
 reference.on('value',function(datas){
     var data = datas.val();
     $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
     });
            
@@ -348,7 +348,7 @@ var reference = db.ref(`registros/`+`${i}-12/`);
 reference.on('value',function(datas){
     var data = datas.val();
     $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
     });
            

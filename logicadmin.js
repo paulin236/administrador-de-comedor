@@ -72,8 +72,22 @@ function viewFecha(user,nombre,area){
         '<input type="number" id="dia" class="form-control" placeholder="Dia"></input>'+
         '</div>'+
         '<div class="form-group">'+
-        '<input type="number" id="mes" class="form-control" placeholder="Mes"></input>'+
-        '</div>';
+                        '<select id="mes">'+
+                        '<option value="" >Seleccione el mes</option>'+
+                        '<option value="1" >Enero</option>'+
+                        '<option value="2" >Febrero</option>'+
+                        '<option value="3" >Marzo</option>'+
+                        '<option value="4" >Abril</option>'+
+                        '<option value="5" >Mayo</option>'+
+                        '<option value="6" >Junio</option>'+
+                        '<option value="7" >Julio</option>'+
+                        '<option value="8" >Agosto</option>'+
+                        '<option value="9" >Septiembre</option>'+
+                        '<option value="10" >Octubre</option>'+
+                        '<option value="11" >Noviembre</option>'+
+                        '<option value="12" >Diciembre</option>'+
+                        '</select>'+
+                    '</div>';
         inHTML('Fecha',viFecha);
 }
 function insertReg(){

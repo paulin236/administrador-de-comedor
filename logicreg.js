@@ -148,7 +148,7 @@ var reference = db.ref(`registros/`+`${i}-`+mesIni+`/`);
 reference.on('value',function(datas){
     var data = datas.val();
     $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
     });
            
@@ -159,7 +159,7 @@ for(let j=0;j<=diaFin;j++){
     reference.on('value',function(datas){
         var data = datas.val();
         $.each(data, function(nodo, value) {
-                var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+                var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
                 printHTML('loadTable',sendData);
         });
                
@@ -172,7 +172,7 @@ for(let j=0;j<=diaFin;j++){
     reference.on('value',function(datas){
         var data = datas.val();
         $.each(data, function(nodo, value) {
-                var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,nodo);
+                var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
                 printHTML('loadTable',sendData);
         });
                
@@ -185,9 +185,21 @@ for(let j=0;j<=diaFin;j++){
     asignation("diaFin","");
     asignation("mesFin","");
     alert("Consulta realizada con exito");
+    // Activar el botón después de hacer clic
+const button = document.getElementById('generateReportButton');
+button.disabled = false; // Desactiva el botón
+
+// Opcional: Cambiar el texto del botón para indicar que está desactivado
+button.textContent = 'Generar reporte';
 }
 }
 function onclickEnero(){
+// Activar el botón después de hacer clic
+const button = document.getElementById('generateReportButton');
+button.disabled = false; // Desactiva el botón
+
+// Opcional: Cambiar el texto del botón para indicar que está desactivado
+button.textContent = 'Generar reporte';
 inHTML('loadTable',"");
 const enero = new Array(31);
 for(let i=0;i<=enero.length;i++){
@@ -202,6 +214,12 @@ reference.on('value',function(datas){
 });
 }}
 function onclickFebrero(){
+    // Activar el botón después de hacer clic
+const button = document.getElementById('generateReportButton');
+button.disabled = false; // Desactiva el botón
+
+// Opcional: Cambiar el texto del botón para indicar que está desactivado
+button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
 const febrero = new Array(31);
 for(let i=0;i<=febrero.length;i++){
@@ -216,6 +234,12 @@ reference.on('value',function(datas){
 });
 }}
 function onclickMarzo(){
+    // Activar el botón después de hacer clic
+const button = document.getElementById('generateReportButton');
+button.disabled = false; // Desactiva el botón
+
+// Opcional: Cambiar el texto del botón para indicar que está desactivado
+button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
 const marzo = new Array(31);
 for(let i=0;i<=marzo.length;i++){
@@ -230,6 +254,12 @@ reference.on('value',function(datas){
 });
 }}
 function onclickAbril(){
+    // Activar el botón después de hacer clic
+const button = document.getElementById('generateReportButton');
+button.disabled = false; // Desactiva el botón
+
+// Opcional: Cambiar el texto del botón para indicar que está desactivado
+button.textContent = 'Generar reporte';
 inHTML('loadTable',"");
 const abril = new Array(31);
 for(let i=0;i<=abril.length;i++){
@@ -244,6 +274,12 @@ reference.on('value',function(datas){
 });
 }}
 function onclickMayo(){
+    // Activar el botón después de hacer clic
+const button = document.getElementById('generateReportButton');
+button.disabled = false; // Desactiva el botón
+
+// Opcional: Cambiar el texto del botón para indicar que está desactivado
+button.textContent = 'Generar reporte';
 inHTML('loadTable',"");
 const mayo = new Array(31);
 for(let i=0;i<=mayo.length;i++){
@@ -258,6 +294,12 @@ reference.on('value',function(datas){
 });
 }}
 function onclickJunio(){
+    // Activar el botón después de hacer clic
+const button = document.getElementById('generateReportButton');
+button.disabled = false; // Desactiva el botón
+
+// Opcional: Cambiar el texto del botón para indicar que está desactivado
+button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
 const junio = new Array(31);
 for(let i=0;i<=junio.length;i++){
@@ -272,6 +314,12 @@ reference.on('value',function(datas){
 });
 }}
 function onclickJulio(){
+    // Activar el botón después de hacer clic
+const button = document.getElementById('generateReportButton');
+button.disabled = false; // Desactiva el botón
+
+// Opcional: Cambiar el texto del botón para indicar que está desactivado
+button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
 const julio = new Array(31);
 for(let i=0;i<=julio.length;i++){
@@ -286,6 +334,12 @@ reference.on('value',function(datas){
 });
 }}
 function onclickAgosto(){
+    // Activar el botón después de hacer clic
+const button = document.getElementById('generateReportButton');
+button.disabled = false; // Desactiva el botón
+
+// Opcional: Cambiar el texto del botón para indicar que está desactivado
+button.textContent = 'Generar reporte';
 inHTML('loadTable',"");
 const agosto = new Array(31);
 for(let i=0;i<=agosto.length;i++){
@@ -299,6 +353,12 @@ reference.on('value',function(datas){
 });
 }}
 function onclickSeptiembre(){
+    // Activar el botón después de hacer clic
+const button = document.getElementById('generateReportButton');
+button.disabled = false; // Desactiva el botón
+
+// Opcional: Cambiar el texto del botón para indicar que está desactivado
+button.textContent = 'Generar reporte';
 inHTML('loadTable',"");
 const septiembre = new Array(31);
 for(let i=0;i<=septiembre.length;i++){
@@ -313,6 +373,12 @@ reference.on('value',function(datas){
 }
 }
 function onclickOctubre(){
+    // Activar el botón después de hacer clic
+const button = document.getElementById('generateReportButton');
+button.disabled = false; // Desactiva el botón
+
+// Opcional: Cambiar el texto del botón para indicar que está desactivado
+button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
 const octubre = new Array(31);
 for(let i=0;i<=octubre.length;i++){
@@ -327,6 +393,12 @@ reference.on('value',function(datas){
 });
 }}
 function onclickNoviembre(){
+    // Activar el botón después de hacer clic
+const button = document.getElementById('generateReportButton');
+button.disabled = false; // Desactiva el botón
+
+// Opcional: Cambiar el texto del botón para indicar que está desactivado
+button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
 const noviembre = new Array(31);
 for(let i=0;i<=noviembre.length;i++){
@@ -341,6 +413,12 @@ reference.on('value',function(datas){
 });
 }}
 function onclickDiciembre(){
+    // Activar el botón después de hacer clic
+const button = document.getElementById('generateReportButton');
+button.disabled = false; // Desactiva el botón
+
+// Opcional: Cambiar el texto del botón para indicar que está desactivado
+button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
 const diciembre = new Array(31);
 for(let i=0;i<=diciembre.length;i++){

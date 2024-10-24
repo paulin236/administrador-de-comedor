@@ -314,8 +314,7 @@ function table(user,nombre,clave,area,date){
     '<i class="fas fa-edit blue icon-lg"></i></a></td>'+
     '<td><a href="#" onclick="removeUser(\''+user+'\')">'+
     '<i class="fas fa-trash-alt red icon-lg"></i></a></td>'+
-    '<td><a data-toggle="modal" data-target="#modalFecha" href="#" onclick="viewFecha(\''+user+'\',\''+nombre+'\',\''+area+'\')"'
-    /*onclick="insertReg(\''+user+'\',\''+nombre+'\',\''+area+'\',\''+descuento+'\',\''+costo+'\',\''+costo+'\')">'*/+
+    '<td><a data-toggle="modal" data-target="#modalFecha" href="#" onclick="viewFecha(\''+user+'\',\''+nombre+'\',\''+area+'\')"'+
     '<i class="fas fa-plus blue icon-lg"></i></a></td>'
 }
 function tableAdmin(user,clave){

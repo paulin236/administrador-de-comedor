@@ -27,8 +27,18 @@ function hourReg(){
     var fh = new Date();
     return fh.getHours()+":"+fh.getMinutes();
 }
+function numerar(){
+        // Seleccionar todas las filas dentro del tbody
+const filas = document.querySelectorAll('#loadTable tr');
+
+// Recorre las filas y asigna un número de fila a la primera columna
+filas.forEach((fila, index) => {
+    // Asigna el número de la fila en la primera celda de cada fila
+    fila.cells[0].textContent = index + 1; // 'index' empieza en 0, por eso se suma 1
+});   
+}
 function table(user,nombre,area,date,descuento,costo,asistencia,total){
-    return '<tr><td>'+user+'</td><td>'+nombre+'</td><td>'+area+'</td><td>'+date+'</td><td>'+descuento+
+    return '<tr><td>'+'</td><td>'+user+'</td><td>'+nombre+'</td><td>'+area+'</td><td>'+date+'</td><td>'+descuento+
     '</td><td>'+costo+'</td><td>'+asistencia+'</td><td>'+total+'</td></tr>';
 }
 function Consulta(){
@@ -96,7 +106,7 @@ for (var i = 1; i < filas.length; i++) {
     var celdas = filas[i].getElementsByTagName("td");
 
     // Leer los datos de cada celda
-    var user = celdas[0].innerHTML;
+    var user = celdas[1].innerHTML;
     arrayWithRepetition.push(user);
 }
 // Crear un objeto para almacenar el resultado
@@ -109,20 +119,20 @@ arrayWithRepetition.forEach((value) => {
 // Asignar las repeticiones a las filas correspondientes
     for (var i = 1; i < filas.length; i++) {
         var celdas = filas[i].getElementsByTagName("td");
-        var user = celdas[0].innerHTML; // Obtener el usuario de la fila actual
-        var descuento= parseFloat(celdas[4].innerHTML); // Obtener el dato de la fila 4
-        var costo= parseFloat(celdas[5].innerHTML); // Obtener el dato de la fila 5
+        var user = celdas[1].innerHTML; // Obtener el usuario de la fila actual
+        var descuento= parseFloat(celdas[5].innerHTML); // Obtener el dato de la fila 5
+        var costo= parseFloat(celdas[6].innerHTML); // Obtener el dato de la fila 6
         var repeticion = result[user]; // Obtener el número de repeticiones para ese usuario
 
 // Asignar el valor de repeticiones a la columna de repeticiones
-        celdas[6].innerHTML = repeticion; // Asignar celda
+        celdas[7].innerHTML = repeticion; // Asignar celda
         var resultadoMultiplicacionDes = descuento* repeticion;
         var resultadoMultiplicacionCos = costo* repeticion;
         var resultadoTotal = parseFloat(resultadoMultiplicacionCos)-parseFloat(resultadoMultiplicacionDes);
         // Asignar el resultado de la multiplicación a la columna (resultado)
-        celdas[4].innerHTML = resultadoMultiplicacionDes.toFixed(2);
-        celdas[5].innerHTML = resultadoMultiplicacionCos.toFixed(2);
-        celdas[7].innerHTML = resultadoTotal.toFixed(2);
+        celdas[5].innerHTML = resultadoMultiplicacionDes.toFixed(2);
+        celdas[6].innerHTML = resultadoMultiplicacionCos.toFixed(2);
+        celdas[8].innerHTML = resultadoTotal.toFixed(2);
     }
 }
 function onClickConsulta(){
@@ -150,8 +160,9 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
+            numerar()
     });
-           
+     
 });
 }
 for(let j=0;j<=diaFin;j++){
@@ -161,6 +172,7 @@ for(let j=0;j<=diaFin;j++){
         $.each(data, function(nodo, value) {
                 var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
                 printHTML('loadTable',sendData);
+                numerar()
         });
                
     });
@@ -174,6 +186,7 @@ for(let j=0;j<=diaFin;j++){
         $.each(data, function(nodo, value) {
                 var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
                 printHTML('loadTable',sendData);
+                numerar()
         });
                
     });
@@ -209,8 +222,9 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
+            numerar()
     });
-           
+       
 });
 }}
 function onclickFebrero(){
@@ -229,6 +243,7 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
+            numerar()
     });
            
 });
@@ -249,6 +264,7 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
+            numerar()
     });
            
 });
@@ -269,6 +285,7 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTableAbril',sendData);
+            numerar()
     });
            
 });
@@ -289,6 +306,7 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
+            numerar()
     });
            
 });
@@ -309,6 +327,7 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
+            numerar()
     });
            
 });
@@ -329,6 +348,7 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTableJulio',sendData);
+            numerar()
     });
            
 });
@@ -349,6 +369,7 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
+            numerar()
     });   
 });
 }}
@@ -368,6 +389,7 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
+            numerar()
     });
 });
 }
@@ -388,8 +410,9 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
+            numerar()
     });
-           
+            
 });
 }}
 function onclickNoviembre(){
@@ -408,6 +431,7 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
+            numerar()
     });
            
 });
@@ -428,6 +452,7 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
             printHTML('loadTable',sendData);
+            numerar()
     });
            
 });

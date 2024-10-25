@@ -153,7 +153,7 @@ ul li .white{color: #ffffff;}
     background-color: #f2f2f2
   }
   .custom-table {
-    width: 120%; /* Ajusta el ancho de la tabla al 100% del contenedor */
+    width: 110%; /* Ajusta el ancho de la tabla al 100% del contenedor */
     max-width: 1800px; /* Ancho máximo de la tabla */
     height: auto; /* Ajusta automáticamente la altura de acuerdo al contenido */
     border: 2px solid #000; /* Borde de la tabla */

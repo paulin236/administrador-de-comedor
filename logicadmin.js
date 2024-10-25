@@ -39,7 +39,7 @@ function hourReg(){
 // Detectar "Enter" en cualquier campo de entrada
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
-        onClickInsert(); // Llama a la función de registro
+        onClickLogin(); // Llama a la función
     }
 });
 function numerar(){

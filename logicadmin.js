@@ -36,6 +36,16 @@ function hourReg(){
     var fh = new Date();
     return fh.getHours()+":"+fh.getMinutes();
 }
+function numerar(){
+    // Seleccionar todas las filas dentro del tbody
+const filas = document.querySelectorAll('#loadTable tr');
+
+// Recorre las filas y asigna un número de fila a la primera columna
+filas.forEach((fila, index) => {
+// Asigna el número de la fila en la primera celda de cada fila
+fila.cells[0].textContent = index + 1; // 'index' empieza en 0, por eso se suma 1
+});   
+}
 function onClickLogin(){
     var user = value("user");
     var clave = value("clave");
@@ -309,7 +319,7 @@ function removeAdmin(user){
     }})
 }
 function table(user,nombre,clave,area,date){
-    return '<tr><td>'+user+'</td><td>'+nombre+'</td><td>'+clave+'</td><td>'+area+'</td><td>'+date+'</td>'+
+    return '<tr><td></td><td>'+user+'</td><td>'+nombre+'</td><td>'+clave+'</td><td>'+area+'</td><td>'+date+'</td>'+
     '<td><a data-toggle="modal" data-target="#modalEdit" href="#" onclick="viewDataUpdate(\''+user+'\',\''+nombre+'\',\''+clave+'\',\''+area+'\')">'+
     '<i class="fas fa-edit blue icon-lg"></i></a></td>'+
     '<td><a href="#" onclick="removeUser(\''+user+'\')">'+
@@ -362,6 +372,7 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = tableAdmin(value.user,value.clave,nodo);
             printHTML('tablaAdmin',sendData);
+            
         });
     }); 
 }
@@ -414,6 +425,7 @@ reference.on('value',function(datas){
     $.each(data, function(nodo, value) {
             var sendData = table(value.user,value.nombre,value.clave,value.area,value.date,nodo);
             printHTML('loadTable',sendData);
+            numerar();
 //obtengo los datos de la columna
 var rows = $(nombre);
 //creo un array el cual guardare los datos para después comparar

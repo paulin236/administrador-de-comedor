@@ -36,6 +36,12 @@ function hourReg(){
     var fh = new Date();
     return fh.getHours()+":"+fh.getMinutes();
 }
+// Detectar "Enter" en cualquier campo de entrada
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        onClickInsert(); // Llama a la función de registro
+    }
+});
 function numerar(){
     // Seleccionar todas las filas dentro del tbody
 const filas = document.querySelectorAll('#loadTable tr');

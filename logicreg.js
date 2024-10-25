@@ -85,7 +85,33 @@ function Consulta(){
     inHTML('consulta',response);
     update.disabled = false;
 }
-function resumir(){
+function removeDuplicateRowsByNombre() {
+    // Obtener la tabla y las filas
+    var tabla = document.getElementById("tabla1");
+    var filas = tabla.getElementsByTagName("tr");
+
+    // Crear un conjunto para almacenar los nombres encontrados
+    var nombresEncontrados = new Set();
+
+    // Recorrer las filas desde el final hacia el inicio para poder eliminar sin problemas
+    for (var i = filas.length - 1; i > 0; i--) {
+        var celdas = filas[i].getElementsByTagName("td");
+        
+        // Verificar que la fila tenga celdas para evitar errores
+        if (celdas.length > 0) {
+            var nombre = celdas[2].innerText; // Columna "Nombre"
+
+            // Si el nombre ya fue encontrado, eliminar la fila
+            if (nombresEncontrados.has(nombre)) {
+                tabla.deleteRow(i);
+            } else {
+                // Si el nombre no ha sido encontrado, agregarlo al conjunto
+                nombresEncontrados.add(nombre);
+            }
+        }
+    }
+}
+function reporte(){
 const arrayWithRepetition = [];
 
 // Desactivar el botón después de hacer clic
@@ -134,6 +160,8 @@ arrayWithRepetition.forEach((value) => {
         celdas[6].innerHTML = resultadoMultiplicacionCos.toFixed(2);
         celdas[8].innerHTML = resultadoTotal.toFixed(2);
     }
+    /*removeDuplicateRowsByNombre();
+    numerar();*/
 }
 function onClickConsulta(){
 inHTML('loadTable',"");

@@ -481,7 +481,7 @@ function searchTable() {
 
     // Recorrer todas las filas de la tabla, excepto la cabecera
     for (var i = 1; i < rows.length; i++) {
-        var td = rows[i].getElementsByTagName("td")[1]; // Obtener la tercera celda (nombre)
+        var td = rows[i].getElementsByTagName("td")[2]; // Obtener la tercera celda (nombre)
         
         if (td) {
             var txtValue = td.textContent || td.innerText;

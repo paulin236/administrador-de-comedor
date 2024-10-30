@@ -4,7 +4,6 @@ function obtenerValorAleatorio(min, max) {
 }
 let i = obtenerValorAleatorio(50, 999);
 
-
 var update = document.getElementById('update');
 update.disabled = true;
 

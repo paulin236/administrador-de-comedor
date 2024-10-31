@@ -51,148 +51,125 @@ filas.forEach((fila, index) => {
 fila.cells[0].textContent = index + 1; // 'index' empieza en 0, por eso se suma 1
 });   
 }
-function onClickLogin(){
-    var user = value("user");
-    var clave = value("clave");
-    asignation("user","");
-    asignation("clave","");
-    if(user.length==0 || clave.length==0){ 
-        alert("Favor de completar los campos solicitados"); 
-    }else{
-        db.ref('admin/'+user+'/clave/').once('value').then(function(snapshot) { 
-            if(clave != snapshot.val()){
-            alert("Usuario o clave incorrecto ")
-            asignation("user","");
-            asignation("clave","");
-        }else{
-            asignation("user","");
-            asignation("clave","");
-            window.location.href = "administrador.html";
-        }})
-        }
+async function onClickLogin() {
+    const user = value("user");
+    const clave = value("clave");
+    asignation("user", "");
+    asignation("clave", "");
+
+    if (!user || !clave) {
+        alert("Favor de completar los campos solicitados");
+        return;
     }
-db.ref('comida/descuento/').once('value').then(function(snapshot) {
-    return descuento = snapshot.val();
-    })
-    db.ref('comida/costo/').once('value').then(function(snapshot1) {
-        return costo = snapshot1.val();
-        })
-function viewFecha(user,nombre,area){
-        var viFecha = 
-        '<div class="form-group">'+
-        '<input type="number" id="usuario" class="form-control" placeholder="user" value="'+user+'"></input>'+
-        '</div>'+
-        '<div class="form-group">'+
-        '<textarea type="text" id="name" class="form-control" placeholder="Nombre" value=>'+nombre+'</textarea>'+
-        '</div>'+
-        '<div class="form-group">'+
-        '<input type="text" id="are" class="form-control" placeholder="Area" value="'+area+'"></input>'+
-        '</div>'+
-        '<div class="form-group">'+
-        '<input type="number" id="dia" class="form-control" placeholder="Dia"></input>'+
-        '</div>'+
-        '<div class="form-group">'+
-                        '<select id="mes">'+
-                        '<option value="" >Seleccione el mes</option>'+
-                        '<option value="1" >Enero</option>'+
-                        '<option value="2" >Febrero</option>'+
-                        '<option value="3" >Marzo</option>'+
-                        '<option value="4" >Abril</option>'+
-                        '<option value="5" >Mayo</option>'+
-                        '<option value="6" >Junio</option>'+
-                        '<option value="7" >Julio</option>'+
-                        '<option value="8" >Agosto</option>'+
-                        '<option value="9" >Septiembre</option>'+
-                        '<option value="10" >Octubre</option>'+
-                        '<option value="11" >Noviembre</option>'+
-                        '<option value="12" >Diciembre</option>'+
-                        '</select>'+
-                    '</div>';
-        inHTML('Fecha',viFecha);
+
+    const snapshot = await db.ref('admin/' + user + '/clave/').once('value');
+    if (clave !== snapshot.val()) {
+        alert("Usuario o clave incorrecto");
+        asignation("user", "");
+        asignation("clave", "");
+    } else {
+        asignation("user", "");
+        asignation("clave", "");
+        window.location.href = "administrador.html";
+    }
 }
-function insertReg(){
-    var user=value("usuario");
-    var nombre=value("name");
-    var area=value("are");
-    var asistencia = 0;
-    var dia=value("dia");
-    var mes=value("mes");
-    if( dia.length==0 || mes.length==0){
-        alert("Agrege una fecha valida")
-    }else
-        if(area=='Practicante' || area=='Visitante'){
-    descuento = 0;
-    i--;
-    db.ref('registros/'+dia+'-'+mes+'/'+i).set({
-        user:user,
-        nombre:nombre,
-        area:area,
-        date:hourReg()+' '+dia+'-'+mes,
-        descuento:descuento,
-        costo:costo,
-        asistencia:asistencia
-        });
-    alert("Registro de "+nombre+" realizado correctamente");
-    asignation("dia","");
-    asignation("mes","");
-    asignation("name","");
-    asignation("are","");
-    asignation("usuario","");
-        }else{
-            i--;
-            db.ref('registros/'+dia+'-'+mes+'/'+i).set({
-                user:user,
-                nombre:nombre,
-                area:area,
-                date:hourReg()+' '+dia+'-'+mes,
-                descuento:descuento,
-                costo:costo,
-                asistencia:asistencia
-                });
-            alert("Registro de "+nombre+" realizado correctamente");
-            asignation("dia","");
-            asignation("mes","");
-            asignation("name","");
-            asignation("are","");
-            asignation("usuario","");
-        }
+
+async function getDescuentoAndCosto() {
+    const descuento = (await db.ref('comida/descuento/').once('value')).val();
+    const costo = (await db.ref('comida/costo/').once('value')).val();
+    return { descuento, costo };
 }
-function insertAdmin(user,clave){
-    db.ref('admin/'+user).set({
-        user:user,
-        clave:clave
+
+function viewFecha(user, nombre, area) {
+    const viFecha = `
+        <div class="form-group">
+            <input type="number" id="usuario" class="form-control" placeholder="user" value="${user}"></input>
+        </div>
+        <div class="form-group">
+            <textarea type="text" id="name" class="form-control" placeholder="Nombre">${nombre}</textarea>
+        </div>
+        <div class="form-group">
+            <input type="text" id="are" class="form-control" placeholder="Area" value="${area}"></input>
+        </div>
+        <div class="form-group">
+            <input type="number" id="dia" class="form-control" placeholder="Dia"></input>
+        </div>
+        <div class="form-group">
+            <select id="mes">
+                <option value="">Seleccione el mes</option>
+                ${[...Array(12).keys()].map(i => `<option value="${i + 1}">${['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'][i]}</option>`).join('')}
+            </select>
+        </div>`;
+    inHTML('Fecha', viFecha);
+}
+
+async function insertReg() {
+    const { descuento, costo } = await getDescuentoAndCosto();
+    const user = value("usuario");
+    const nombre = value("name");
+    const area = value("are");
+    const dia = value("dia");
+    const mes = value("mes");
+
+    if (!dia || !mes) {
+        alert("Agrege una fecha valida");
+        return;
+    }
+
+    const asistencia = 0;
+    const descuentoAplicado = (area === 'Practicante' || area === 'Visitante') ? 0 : descuento;
+
+    await db.ref('registros/' + dia + '-' + mes + '/' + i--).set({
+        user,
+        nombre,
+        area,
+        date: `${hourReg()} ${dia}-${mes}`,
+        descuento: descuentoAplicado,
+        costo,
+        asistencia
+    });
+
+    alert(`Registro de ${nombre} realizado correctamente`);
+    ['dia', 'mes', 'name', 'are', 'usuario'].forEach(id => asignation(id, ""));
+}
+
+async function insertUser(user, nombre, clave, area) {
+    await db.ref('users/' + user).set({
+        nombre,
+        user,
+        clave,
+        area,
+        date: dateActuality()
     });
 }
-function onClickInsertAdmin(){
-    var user = value("userAdmin");
-    var clave = value("claveAdmin");
-    if(user.length==0 || clave.length==0){ 
-        alert("Favor de llenar todos los campos"); 
-    }else{
-        db.ref('admin/'+user+'/user/').once('value').then(function(snapshot) { 
-            if(user == snapshot.val()){
-            alert("No se permite duplicar usuario")
-            asignation("userAdmin","");
-            asignation("claveAdmin","");
-        }else{
-        insertAdmin(user,clave); 
-        asignation("userAdmin","");
-        asignation("claveAdmin","");
-        inHTML("tablaAdmin","");
+
+async function insertAdmin(user, clave) {
+    await db.ref('admin/' + user).set({ user, clave });
+}
+
+async function onClickInsertAdmin(){
+    const user = value("userAdmin");
+    const clave = value("claveAdmin");
+    inHTML("tablaAdmin", "");
+
+    if (!user || !clave) {
+        alert("Favor de llenar todos los campos");
+        return;
+    }
+
+    const snapshot = await db.ref('admin/' + user + '/user/').once('value');
+    if (user === snapshot.val()) {
+        alert("No se permite duplicar usuario");
+        asignation("userAdmin", "");
+        asignation("claveAdmin", "");
+    } else {
+        await insertAdmin(user, clave);
+        ['userAdmin', 'claveAdmin'].forEach(id => asignation(id, ""));
         alert("Usuario guardado correctamente");
-        update.disabled = false;
-    }})
+        inHTML('adminModal', "");
+    }
 }
-}
-function insertUser(user,nombre,clave,area){
-    db.ref('users/'+user).set({
-        nombre:nombre,
-        user:user,
-        clave:clave,
-        area:area,
-        date:dateActuality()
-    });
-}
+
 function onClickInsert(){
     var user = value("user");
     var clave = value("clave");
@@ -216,36 +193,31 @@ function onClickInsert(){
     }})
 }
 }
-function updateUser(user,nombre,clave,area){
-    db.ref('users/'+user).update({
-        user:user,
-        nombre:nombre,
-        clave:clave,
-        area:area
-    });
+
+async function updateUser(user, nombre, clave, area) {
+    await db.ref('users/' + user).update({ user, nombre, clave, area });
 }
-function onClickUpdate(){
-    var user = value("userEdit");
-    var nombre = value("nombreEdit");
-    var area = value("areaEdit");
-    var clave = value("claveEdit");
-    if(nombre.length==0 || user.length==0 || clave.length==0 || area.length==0){ 
+
+async function onClickUpdate(){
+    const user = value("userEdit");
+    const nombre = value("nombreEdit");
+    const area = value("areaEdit");
+    const clave = value("claveEdit");
+
+    if (!user || !nombre || !clave || !area) {
         alert("Favor de llenar todos los campos");
-    }else{
-        /*db.ref('users/'+user+'/user/').once('value').then(function(snapshot) { 
-            if(user == snapshot.val()){
-            alert("No se permite duplicar usuario")
-        }else{*/
-        inHTML("loadTable","");
-        updateUser(user,nombre,clave,area); 
-        inHTML("editData","");
-        alert("Usuario modificado correctamente");
-        update.disabled = false;
+        return;
     }
+
+    inHTML("loadTable", "");
+    await updateUser(user, nombre, clave, area);
+    inHTML("editData", "");
+    alert("Usuario modificado correctamente");
 }
+
 function onClickUpdatePrecio(){
     var costo = value("costo");
-    if(descuento.length==0 ){ 
+    if(costo.length==0 ){ 
         alert("Favor de llenar todos los campos");
     }else{
         asignation("costo","");
@@ -255,6 +227,7 @@ function onClickUpdatePrecio(){
         update.disabled = false;
     }
 }
+
 function onclickModalUpdatePrecio(){
 db.ref('comida/costo/').once('value').then(function(snapshot) {
     var inprecio = '<div class="form-group">'+
@@ -266,14 +239,13 @@ db.ref('comida/costo/').once('value').then(function(snapshot) {
     inHTML('precioActual',inprecio)
 })
 }
-function updatePrecio(costo){
-    var iva=(costo*0.16).toFixed(2);
-    var precio=(parseFloat(iva)+parseFloat(costo));
-    db.ref('comida/').update({
-        costoIVA:precio,
-        costo:costo
-    });
+
+async function updatePrecio(costo) {
+    const iva = (costo * 0.16).toFixed(2);
+    const precio = parseFloat(iva) + parseFloat(costo);
+    await db.ref('comida/').update({ costoIVA: precio, costo });
 }
+
 function onclickModalUpdateUMA(){
     db.ref('comida/descuento/').once('value').then(function(snapshot) {
         return descuentoUMA = snapshot.val();
@@ -291,15 +263,17 @@ function onclickModalUpdateUMA(){
         inHTML('UMAActual',inUMA)
     })
     }
+
     function updateUMA(UMA){
         db.ref('comida/').update({
             UMA:UMA,
             descuento:(UMA*0.2).toFixed(2)
         });
     }
+
     function onClickUpdateUMA(){
         var UMA = value("UMA");
-        if(descuento.length==0 ){ 
+        if(UMA.length==0 ){ 
             alert("Favor de llenar todos los campos");
         }else{
             asignation("UMA","");
@@ -309,6 +283,7 @@ function onclickModalUpdateUMA(){
             update.disabled = false;
         }
     }
+
 function removeUser(user){
     db.ref('users/'+user+'/nombre/').once('value').then(function(snapshot) {
     if(confirm("¿Desea eliminar al usuario "+snapshot.val()+"?")){
@@ -316,13 +291,15 @@ function removeUser(user){
         db.ref('users/'+user).remove();
     }})
 }
+
 function removeAdmin(user){
     db.ref('admin/'+user+'/user/').once('value').then(function(snapshot) {
     if(confirm("¿Desea eliminar al usuario "+snapshot.val()+"?")){
-        inHTML("tablaAdmin","");
         db.ref('admin/'+user).remove();
     }})
+    inHTML("tablaAdmin","");
 }
+
 function table(user,nombre,clave,area,date){
     return '<tr><td></td><td>'+user+'</td><td>'+nombre+'</td><td>'+clave+'</td><td>'+area+'</td><td>'+date+'</td>'+
     '<td><a data-toggle="modal" data-target="#modalEdit" href="#" onclick="viewDataUpdate(\''+user+'\',\''+nombre+'\',\''+clave+'\',\''+area+'\')">'+
@@ -332,11 +309,13 @@ function table(user,nombre,clave,area,date){
     '<td><a data-toggle="modal" data-target="#modalFecha" href="#" onclick="viewFecha(\''+user+'\',\''+nombre+'\',\''+area+'\')"'+
     '<i class="fas fa-plus blue icon-lg"></i></a></td>'
 }
+
 function tableAdmin(user,clave){
     return '<tr><td>'+user+'</td><td>'+clave+
     '<td><a href="#" onclick="removeAdmin(\''+user+'\')">'+
     '<i class="fas fa-trash-alt red icon-lg"></i></a></td>'
 }
+
 function modalUserAdmin(){
 var modal='<div class="form-group">'+
                         '<div class="input-group">'+
@@ -381,6 +360,7 @@ reference.on('value',function(datas){
         });
     }); 
 }
+
 function viewDataUpdate(user,nombre,clave,area){
     var response = '<div class="form-group">'+
     '<input type="text" class="form-control" placeholder="User" value='+user+' id="userEdit"></input>'+
@@ -418,11 +398,13 @@ function viewDataUpdate(user,nombre,clave,area){
     inHTML('editData',response);
     update.disabled = false;
 }
+
 // Función que genera un número aleatorio de 4 dígitos y lo inserta en el campo especificado
 function generateRandom(inputId) {
     const randomNum = Math.floor(1000 + Math.random() * 9000); // Genera un número de 4 dígitos
     document.getElementById(inputId).value = randomNum;
 }
+
 //Mostrar datos en tabla
 var reference = db.ref('users/');    
 reference.on('value',function(datas){
@@ -452,6 +434,7 @@ rows.each(function(){
  //console.log((arr));
     });       
 });
+
 var getCellValue = function(tr, idx){ return tr.children[idx].innerText || tr.children[idx].textContent; }
 
 var comparer = function(idx, asc) { return function(a, b) { return function(v1, v2) {
@@ -469,6 +452,7 @@ Array.prototype.slice.call(document.querySelectorAll('th')).forEach(function(th)
             update.disabled = false;
     })
 });
+
 function searchTable() {
     // Obtener el valor de entrada y convertirlo a minúsculas para hacer la búsqueda insensible a mayúsculas/minúsculas
     var input = document.getElementById("searchInput");

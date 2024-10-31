@@ -150,7 +150,6 @@ async function insertAdmin(user, clave) {
 async function onClickInsertAdmin(){
     const user = value("userAdmin");
     const clave = value("claveAdmin");
-    inHTML("tablaAdmin", "");
 
     if (!user || !clave) {
         alert("Favor de llenar todos los campos");
@@ -163,7 +162,9 @@ async function onClickInsertAdmin(){
         asignation("userAdmin", "");
         asignation("claveAdmin", "");
     } else {
-        await insertAdmin(user, clave);
+        await 
+        inHTML("tablaAdmin", "");
+        insertAdmin(user, clave);
         ['userAdmin', 'claveAdmin'].forEach(id => asignation(id, ""));
         alert("Usuario guardado correctamente");
         inHTML('adminModal', "");
@@ -295,9 +296,9 @@ function removeUser(user){
 function removeAdmin(user){
     db.ref('admin/'+user+'/user/').once('value').then(function(snapshot) {
     if(confirm("¿Desea eliminar al usuario "+snapshot.val()+"?")){
+        inHTML("tablaAdmin","");
         db.ref('admin/'+user).remove();
     }})
-    inHTML("tablaAdmin","");
 }
 
 function table(user,nombre,clave,area,date){
@@ -359,6 +360,7 @@ reference.on('value',function(datas){
             
         });
     }); 
+    return modal;
 }
 
 function viewDataUpdate(user,nombre,clave,area){

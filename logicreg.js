@@ -118,7 +118,7 @@ const arrayWithRepetition = [];
 const button = document.getElementById('generateReportButton');
 button.disabled = true; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
+//  Cambiar el texto del botón para indicar que está desactivado
 button.textContent = 'Reporte generado';
 // Obtener la tabla por su ID
 var tabla = document.getElementById("tabla1");
@@ -163,328 +163,231 @@ arrayWithRepetition.forEach((value) => {
     /*removeDuplicateRowsByNombre();
     numerar();*/
 }
-function onClickConsulta(){
-inHTML('loadTable',"");
-var diaIni = value("diaIni");
-var mesIni = value("mesIni");
-var diaFin = value("diaFin");
-var mesFin = value("mesFin");
-inHTML('loadTable',"");
-const consulta1 = new Array(32);
-if(diaIni.length==0 || diaIni>=32 || mesIni.length==0 || diaFin.length==0 || diaFin>=32 || mesFin.length==0){ 
-    update.disabled = false;
-    asignation("diaIni","");
-    asignation("mesIni","");
-    asignation("diaFin","");
-    asignation("mesFin","");
-    alert("Favor de completar los campos solicitados con informacion correcta");
-    inHTML('loadTable',"");
-}else{ if(mesIni != mesFin){
-inHTML('loadTable',"");
-for(let i=diaIni;i<=consulta1.length;i++){
-var reference = db.ref(`registros/`+`${i}-`+mesIni+`/`);
-reference.on('value',function(datas){
-    var data = datas.val();
-    $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-            printHTML('loadTable',sendData);
-            numerar()
-    });
-     
-});
-}
-for(let j=0;j<=diaFin;j++){
-    var reference = db.ref(`registros/`+`${j}-`+mesFin+`/`);
-    reference.on('value',function(datas){
-        var data = datas.val();
-        $.each(data, function(nodo, value) {
-                var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-                printHTML('loadTable',sendData);
-                numerar()
-        });
-               
-    });
-    }
-}else{
-    inHTML('loadTable',"");
-    for(let i=diaIni;i<=diaFin;i++){
-    var reference = db.ref(`registros/`+`${i}-`+mesIni+`/`);
-    reference.on('value',function(datas){
-        var data = datas.val();
-        $.each(data, function(nodo, value) {
-                var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-                printHTML('loadTable',sendData);
-                numerar()
-        });
-               
-    });
-    }
-}
-    update.disabled = false;
-    asignation("diaIni","");
-    asignation("mesIni","");
-    asignation("diaFin","");
-    asignation("mesFin","");
-    alert("Consulta realizada con exito");
-    // Activar el botón después de hacer clic
-const button = document.getElementById('generateReportButton');
-button.disabled = false; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
-button.textContent = 'Generar reporte';
-}
-}
-function onclickEnero(){
-// Activar el botón después de hacer clic
-const button = document.getElementById('generateReportButton');
-button.disabled = false; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
-button.textContent = 'Generar reporte';
-inHTML('loadTable',"");
-const enero = new Array(31);
-for(let i=0;i<=enero.length;i++){
-var reference = db.ref(`registros/`+`${i}-1/`);
-reference.on('value',function(datas){
-    var data = datas.val();
-    $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-            printHTML('loadTable',sendData);
-            numerar()
-    });
-       
-});
-}}
+// Función que se ejecuta al hacer clic en el botón de consulta
+function onClickConsulta() {
+    inHTML('loadTable', ""); // Limpia la tabla HTML
+    var diaIni = value("diaIni"); // Obtiene el día de inicio
+    var mesIni = value("mesIni"); // Obtiene el mes de inicio
+    var diaFin = value("diaFin"); // Obtiene el día de fin
+    var mesFin = value("mesFin"); // Obtiene el mes de fin
+
+    const consulta1 = new Array(32); // Crea un arreglo para almacenar hasta 31 días
+
+    // Valida que los campos no estén vacíos y que los días ingresados sean válidos
+    if (diaIni.length == 0 || diaIni >= 32 || mesIni.length == 0 || diaFin.length == 0 || diaFin >= 32 || mesFin.length == 0) {
+        update.disabled = false;
+        asignation("diaIni", ""); // Reinicia el valor del campo de día de inicio
+        asignation("mesIni", ""); // Reinicia el valor del campo de mes de inicio
+        asignation("diaFin", ""); // Reinicia el valor del campo de día de fin
+        asignation("mesFin", ""); // Reinicia el valor del campo de mes de fin
+        alert("Favor de completar los campos solicitados con información correcta");
+        inHTML('loadTable', ""); // Limpia la tabla
+    } else {
+        inHTML('loadTable', ""); // Limpia la tabla de nuevo
+        // Verifica si los meses de inicio y fin son diferentes
+        if (mesIni != mesFin) {
+            // Ciclo para el mes inicial
+            for (let i = diaIni; i <= consulta1.length; i++) {
+                var reference = db.ref(`registros/${i}-${mesIni}/`);
+                reference.on('value', function (datas) {
+                    var data = datas.val();
+                    $.each(data, function (nodo, value) {
+                        var sendData = table(value.user, value.nombre, value.area, value.date, value.descuento, value.costo, value.asistencia, '0', nodo);
+                        printHTML('loadTable', sendData);
+                        numerar();
+                    });
+                });
+            }
+            // Ciclo para el mes final
+            for (let j = 0; j <= diaFin; j++) {
+                var reference = db.ref(`registros/${j}-${mesFin}/`);
+                reference.on('value', function (datas) {
+                    var data = datas.val();
+                    $.each(data, function (nodo, value) {
+                        var sendData = table(value.user, value.nombre, value.area, value.date, value.descuento, value.costo, value.asistencia, '0', nodo);
+                        printHTML('loadTable', sendData);
+                        numerar();
+                    });
+                });
+            }
+        } else {
+            // Si el mes de inicio y fin es el mismo
+            for (let i = diaIni; i <= diaFin; i++) {
+                var reference = db.ref(`registros/${i}-${mesIni}/`);
+                reference.on('value', function (datas) {
+                    var data = datas.val();
+                    $.each(data, function (nodo, value) {
+                        var sendData = table(value.user, value.nombre, value.area, value.date, value.descuento, value.costo, value.asistencia, '0', nodo);
+                        printHTML('loadTable', sendData);
+                        numerar();
+                    });
+                });
+            }
+        }
+        update.disabled = false; // Habilita la actualización
+        asignation("diaIni", ""); // Reinicia el día de inicio
+        asignation("mesIni", ""); // Reinicia el mes de inicio
+        asignation("diaFin", ""); // Reinicia el día de fin
+        asignation("mesFin", ""); // Reinicia el mes de fin
+        alert("Consulta realizada con éxito");
+
+        // Activa el botón para generar reporte después de realizar la consulta
+        const button = document.getElementById('generateReportButton');
+        button.disabled = false;
+        button.textContent = 'Generar reporte';
+    }
+}
+
+//Funcion para generar las tablas de cada mes
+function generarTablaConsultas(mes){
+    const arrMes = new Array(31); // Crea un arreglo para el mes (31 días)
+    for (let i = 0; i <= arrMes.length; i++) {
+        var reference = db.ref(`registros/${i}-`+mes+`/`);
+        reference.on('value', function (datas) {
+            var data = datas.val();
+            $.each(data, function (nodo, value) {
+                var sendData = table(value.user, value.nombre, value.area, value.date, value.descuento, value.costo, value.asistencia, '0', nodo);
+                printHTML('loadTable', sendData);
+                numerar();
+            });
+        });
+    }
+}
+
+// Función para realizar la consulta del mes de enero
+function onclickEnero() {
+    const button = document.getElementById('generateReportButton');
+    button.disabled = false;
+    button.textContent = 'Generar reporte';
+    inHTML('loadTable', ""); // Limpia la tabla
+    generarTablaConsultas(1);
+}
+
+// Se repiten funciones similares para cada mes
+
 function onclickFebrero(){
     // Activar el botón después de hacer clic
 const button = document.getElementById('generateReportButton');
 button.disabled = false; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
+//  Cambiar el texto del botón para indicar que está desactivado
 button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
-const febrero = new Array(31);
-for(let i=0;i<=febrero.length;i++){
-var reference = db.ref(`registros/`+`${i}-2/`);
-reference.on('value',function(datas){
-    var data = datas.val();
-    $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-            printHTML('loadTable',sendData);
-            numerar()
-    });
-           
-});
-}}
+    generarTablaConsultas(2);
+}
+
 function onclickMarzo(){
     // Activar el botón después de hacer clic
 const button = document.getElementById('generateReportButton');
 button.disabled = false; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
+//  Cambiar el texto del botón para indicar que está desactivado
 button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
-const marzo = new Array(31);
-for(let i=0;i<=marzo.length;i++){
-var reference = db.ref(`registros/`+`${i}-3/`);
-reference.on('value',function(datas){
-    var data = datas.val();
-    $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-            printHTML('loadTable',sendData);
-            numerar()
-    });
-           
-});
-}}
+    generarTablaConsultas(3);
+}
+
 function onclickAbril(){
     // Activar el botón después de hacer clic
 const button = document.getElementById('generateReportButton');
 button.disabled = false; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
+//  Cambiar el texto del botón para indicar que está desactivado
 button.textContent = 'Generar reporte';
 inHTML('loadTable',"");
-const abril = new Array(31);
-for(let i=0;i<=abril.length;i++){
-var reference = db.ref(`registros/`+`${i}-4/`);
-reference.on('value',function(datas){
-    var data = datas.val();
-    $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-            printHTML('loadTableAbril',sendData);
-            numerar()
-    });
-           
-});
-}}
+generarTablaConsultas(4);
+}
+
 function onclickMayo(){
     // Activar el botón después de hacer clic
 const button = document.getElementById('generateReportButton');
 button.disabled = false; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
+//  Cambiar el texto del botón para indicar que está desactivado
 button.textContent = 'Generar reporte';
 inHTML('loadTable',"");
-const mayo = new Array(31);
-for(let i=0;i<=mayo.length;i++){
-var reference = db.ref(`registros/`+`${i}-5/`);
-reference.on('value',function(datas){
-    var data = datas.val();
-    $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-            printHTML('loadTable',sendData);
-            numerar()
-    });
-           
-});
-}}
+generarTablaConsultas(5);
+}
+
 function onclickJunio(){
     // Activar el botón después de hacer clic
 const button = document.getElementById('generateReportButton');
 button.disabled = false; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
+//  Cambiar el texto del botón para indicar que está desactivado
 button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
-const junio = new Array(31);
-for(let i=0;i<=junio.length;i++){
-var reference = db.ref(`registros/`+`${i}-6/`);
-reference.on('value',function(datas){
-    var data = datas.val();
-    $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-            printHTML('loadTable',sendData);
-            numerar()
-    });
-           
-});
-}}
+    generarTablaConsultas(6);
+}
+
 function onclickJulio(){
     // Activar el botón después de hacer clic
 const button = document.getElementById('generateReportButton');
 button.disabled = false; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
+//  Cambiar el texto del botón para indicar que está desactivado
 button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
-const julio = new Array(31);
-for(let i=0;i<=julio.length;i++){
-var reference = db.ref(`registros/`+`${i}-7/`);
-reference.on('value',function(datas){
-    var data = datas.val();
-    $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-            printHTML('loadTableJulio',sendData);
-            numerar()
-    });
-           
-});
-}}
+    generarTablaConsultas(7);
+}
+
 function onclickAgosto(){
     // Activar el botón después de hacer clic
 const button = document.getElementById('generateReportButton');
 button.disabled = false; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
+//  Cambiar el texto del botón para indicar que está desactivado
 button.textContent = 'Generar reporte';
 inHTML('loadTable',"");
-const agosto = new Array(31);
-for(let i=0;i<=agosto.length;i++){
-var reference = db.ref(`registros/`+`${i}-8/`);
-reference.on('value',function(datas){
-    var data = datas.val();
-    $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-            printHTML('loadTable',sendData);
-            numerar()
-    });   
-});
-}}
+generarTablaConsultas(8);
+}
+
 function onclickSeptiembre(){
     // Activar el botón después de hacer clic
 const button = document.getElementById('generateReportButton');
 button.disabled = false; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
+//  Cambiar el texto del botón para indicar que está desactivado
 button.textContent = 'Generar reporte';
 inHTML('loadTable',"");
-const septiembre = new Array(31);
-for(let i=0;i<=septiembre.length;i++){
-var reference = db.ref(`registros/`+`${i}-9/`);
-reference.on('value',function(datas){
-    var data = datas.val();
-    $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-            printHTML('loadTable',sendData);
-            numerar()
-    });
-});
+generarTablaConsultas(9);
 }
-}
+
 function onclickOctubre(){
     // Activar el botón después de hacer clic
 const button = document.getElementById('generateReportButton');
 button.disabled = false; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
+//  Cambiar el texto del botón para indicar que está desactivado
 button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
-const octubre = new Array(31);
-for(let i=0;i<=octubre.length;i++){
-var reference = db.ref(`registros/`+`${i}-10/`);
-reference.on('value',function(datas){
-    var data = datas.val();
-    $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-            printHTML('loadTable',sendData);
-            numerar()
-    });
-            
-});
-}}
+    generarTablaConsultas(10)
+}
+
 function onclickNoviembre(){
     // Activar el botón después de hacer clic
 const button = document.getElementById('generateReportButton');
 button.disabled = false; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
+//  Cambiar el texto del botón para indicar que está desactivado
 button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
-const noviembre = new Array(31);
-for(let i=0;i<=noviembre.length;i++){
-var reference = db.ref(`registros/`+`${i}-11/`);
-reference.on('value',function(datas){
-    var data = datas.val();
-    $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-            printHTML('loadTable',sendData);
-            numerar()
-    });
-           
-});
-}}
+    generarTablaConsultas(11);
+}
+
 function onclickDiciembre(){
     // Activar el botón después de hacer clic
 const button = document.getElementById('generateReportButton');
 button.disabled = false; // Desactiva el botón
 
-// Opcional: Cambiar el texto del botón para indicar que está desactivado
+//  Cambiar el texto del botón para indicar que está desactivado
 button.textContent = 'Generar reporte';
     inHTML('loadTable',"");
-const diciembre = new Array(31);
-for(let i=0;i<=diciembre.length;i++){
-var reference = db.ref(`registros/`+`${i}-12/`);
-reference.on('value',function(datas){
-    var data = datas.val();
-    $.each(data, function(nodo, value) {
-            var sendData = table(value.user,value.nombre,value.area,value.date,value.descuento,value.costo,value.asistencia,'0',nodo);
-            printHTML('loadTable',sendData);
-            numerar()
-    });
-           
-});
-}}
+    generarTablaConsultas(12);
+}
+
 function exportTableToExcel(tableID, filename = ''){
     var downloadLink;
     var dataType = 'application/vnd.ms-excel';

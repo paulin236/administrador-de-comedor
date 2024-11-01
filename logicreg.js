@@ -41,11 +41,9 @@ filas.forEach((fila, index) => {
 function removeReg(date, nombre){
 
     // Dividir la cadena para obtener la parte de la fecha
-    let dateId = date.split(" ")[3]; // Esto extrae "30-10-2024"
-
+    let dateId = date.split(" ")[3];
     // Dividir la fecha para obtener solo el día y el mes
     let diaMes = dateId.split("-").slice(0, 2).join("-"); // Esto obtiene
-
     //console.log(diaMes);
     if(confirm("¿Desea eliminar el registro de "+nombre+"?")){
         inHTML("loadTable","");
@@ -279,11 +277,15 @@ function generarTablaConsultas(mes){
     }
 }
 
-// Función para realizar la consulta del mes de enero
-function onclickEnero() {
+function activarBoton (){
     const button = document.getElementById('generateReportButton');
     button.disabled = false;
     button.textContent = 'Generar reporte';
+}
+
+// Función para realizar la consulta del mes de enero
+function onclickEnero() {
+    activarBoton();
     inHTML('loadTable', ""); // Limpia la tabla
     generarTablaConsultas(1);
 }
@@ -291,122 +293,67 @@ function onclickEnero() {
 // Se repiten funciones similares para cada mes
 
 function onclickFebrero(){
-    // Activar el botón después de hacer clic
-const button = document.getElementById('generateReportButton');
-button.disabled = false; // Desactiva el botón
-
-//  Cambiar el texto del botón para indicar que está desactivado
-button.textContent = 'Generar reporte';
+    activarBoton();
     inHTML('loadTable',"");
     generarTablaConsultas(2);
 }
 
 function onclickMarzo(){
-    // Activar el botón después de hacer clic
-const button = document.getElementById('generateReportButton');
-button.disabled = false; // Desactiva el botón
-
-//  Cambiar el texto del botón para indicar que está desactivado
-button.textContent = 'Generar reporte';
+    activarBoton();
     inHTML('loadTable',"");
     generarTablaConsultas(3);
 }
 
 function onclickAbril(){
-    // Activar el botón después de hacer clic
-const button = document.getElementById('generateReportButton');
-button.disabled = false; // Desactiva el botón
-
-//  Cambiar el texto del botón para indicar que está desactivado
-button.textContent = 'Generar reporte';
+    activarBoton();
 inHTML('loadTable',"");
 generarTablaConsultas(4);
 }
 
 function onclickMayo(){
-    // Activar el botón después de hacer clic
-const button = document.getElementById('generateReportButton');
-button.disabled = false; // Desactiva el botón
-
-//  Cambiar el texto del botón para indicar que está desactivado
-button.textContent = 'Generar reporte';
+    activarBoton();
 inHTML('loadTable',"");
 generarTablaConsultas(5);
 }
 
 function onclickJunio(){
-    // Activar el botón después de hacer clic
-const button = document.getElementById('generateReportButton');
-button.disabled = false; // Desactiva el botón
-
-//  Cambiar el texto del botón para indicar que está desactivado
-button.textContent = 'Generar reporte';
+    activarBoton();
     inHTML('loadTable',"");
     generarTablaConsultas(6);
 }
 
 function onclickJulio(){
-    // Activar el botón después de hacer clic
-const button = document.getElementById('generateReportButton');
-button.disabled = false; // Desactiva el botón
-
-//  Cambiar el texto del botón para indicar que está desactivado
-button.textContent = 'Generar reporte';
+    activarBoton();
     inHTML('loadTable',"");
     generarTablaConsultas(7);
 }
 
 function onclickAgosto(){
-    // Activar el botón después de hacer clic
-const button = document.getElementById('generateReportButton');
-button.disabled = false; // Desactiva el botón
-
-//  Cambiar el texto del botón para indicar que está desactivado
-button.textContent = 'Generar reporte';
+    activarBoton();
 inHTML('loadTable',"");
 generarTablaConsultas(8);
 }
 
 function onclickSeptiembre(){
-    // Activar el botón después de hacer clic
-const button = document.getElementById('generateReportButton');
-button.disabled = false; // Desactiva el botón
-
-//  Cambiar el texto del botón para indicar que está desactivado
-button.textContent = 'Generar reporte';
+    activarBoton();
 inHTML('loadTable',"");
 generarTablaConsultas(9);
 }
 
 function onclickOctubre(){
-    // Activar el botón después de hacer clic
-const button = document.getElementById('generateReportButton');
-button.disabled = false; // Desactiva el botón
-
-//  Cambiar el texto del botón para indicar que está desactivado
-button.textContent = 'Generar reporte';
+    activarBoton();
     inHTML('loadTable',"");
     generarTablaConsultas(10)
 }
 
 function onclickNoviembre(){
-    // Activar el botón después de hacer clic
-const button = document.getElementById('generateReportButton');
-button.disabled = false; // Desactiva el botón
-
-//  Cambiar el texto del botón para indicar que está desactivado
-button.textContent = 'Generar reporte';
+    activarBoton();
     inHTML('loadTable',"");
     generarTablaConsultas(11);
 }
 
 function onclickDiciembre(){
-    // Activar el botón después de hacer clic
-const button = document.getElementById('generateReportButton');
-button.disabled = false; // Desactiva el botón
-
-//  Cambiar el texto del botón para indicar que está desactivado
-button.textContent = 'Generar reporte';
+    activarBoton();
     inHTML('loadTable',"");
     generarTablaConsultas(12);
 }

@@ -37,9 +37,32 @@ filas.forEach((fila, index) => {
     fila.cells[0].textContent = index + 1; // 'index' empieza en 0, por eso se suma 1
 });   
 }
+
+function removeReg(date, nombre){
+
+    // Dividir la cadena para obtener la parte de la fecha
+    let dateId = date.split(" ")[3]; // Esto extrae "30-10-2024"
+
+    // Dividir la fecha para obtener solo el día y el mes
+    let diaMes = dateId.split("-").slice(0, 2).join("-"); // Esto obtiene
+
+    //console.log(diaMes);
+    if(confirm("¿Desea eliminar el registro de "+nombre+"?")){
+        inHTML("loadTable","");
+        db.ref('/registros/'+diaMes+'/').orderByChild("date").equalTo(date).once("value").then(function (snapshot) {
+          snapshot.forEach((childSnapshot) => {
+            //remove each child
+            db.ref('/registros/'+diaMes).child(childSnapshot.key).remove();
+          });
+        });;
+        inHTML("loadTable","");
+    }
+}
+
 function table(user,nombre,area,date,descuento,costo,asistencia,total){
     return '<tr><td>'+'</td><td>'+user+'</td><td>'+nombre+'</td><td>'+area+'</td><td>'+date+'</td><td>'+descuento+
-    '</td><td>'+costo+'</td><td>'+asistencia+'</td><td>'+total+'</td></tr>';
+    '</td><td>'+costo+'</td><td>'+asistencia+'</td><td>'+total+'</td>'+'<td><a href="#" onclick="removeReg(\''+date+'\',\''+nombre+'\')">'+
+    '<i class="fas fa-trash-alt red icon-lg"></i></a></td>'+'</tr>';
 }
 function Consulta(){
     var response = '<div class="form-group">'+

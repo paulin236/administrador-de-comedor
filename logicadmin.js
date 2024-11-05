@@ -92,7 +92,7 @@ function viewFecha(user, nombre, area) {
             <input type="text" id="are" class="form-control" placeholder="Area" value="${area}"></input>
         </div>
         <div class="form-group">
-            <input type="number" id="dia" class="form-control" placeholder="Dia"></input>
+            <input type="number" id="dia" class="form-control" placeholder="Dia" min="1" max="31"></input>
         </div>
         <div class="form-group">
             <select id="mes">
@@ -104,6 +104,7 @@ function viewFecha(user, nombre, area) {
 }
 
 async function insertReg() {
+    var fh = new Date();
     const { descuento, costo } = await getDescuentoAndCosto();
     const user = value("usuario");
     const nombre = value("name");
@@ -111,7 +112,7 @@ async function insertReg() {
     const dia = value("dia");
     const mes = value("mes");
 
-    if (!dia || !mes) {
+    if (!dia || !mes || dia>=32) {
         alert("Agrege una fecha valida");
         return;
     }
@@ -123,7 +124,7 @@ async function insertReg() {
         user,
         nombre,
         area,
-        date: `${hourReg()} ${dia}-${mes}`,
+        date: `${hourReg()}   ${dia}-${mes}-${fh.getFullYear()}`,
         descuento: descuentoAplicado,
         costo,
         asistencia

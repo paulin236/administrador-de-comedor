@@ -19,14 +19,6 @@ function dateActuality(){
     var fh = new Date();
     return fh.getFullYear()+"-"+(fh.getMonth()+1)+"-"+fh.getDate()+" "+fh.getHours()+":"+fh.getMinutes();
 }
-function dateActualityReg(){
-    var fh = new Date();
-    return (fh.getMonth()+1)+"-"+fh.getDate();
-}
-function hourReg(){
-    var fh = new Date();
-    return fh.getHours()+":"+fh.getMinutes();
-}
 function numerar(){
         // Seleccionar todas las filas dentro del tbody
 const filas = document.querySelectorAll('#loadTable tr');
@@ -47,10 +39,10 @@ function removeReg(date, nombre){
     //console.log(diaMes);
     if(confirm("¿Desea eliminar el registro de "+nombre+"?")){
         inHTML("loadTable","");
-        db.ref('/registros/'+diaMes+'/').orderByChild("date").equalTo(date).once("value").then(function (snapshot) {
+        db.ref('/registros/'+dateId+'/').orderByChild("date").equalTo(date).once("value").then(function (snapshot) {
           snapshot.forEach((childSnapshot) => {
             //remove each child
-            db.ref('/registros/'+diaMes).child(childSnapshot.key).remove();
+            db.ref('/registros/'+dateId).child(childSnapshot.key).remove();
           });
         });;
         inHTML("loadTable","");
@@ -188,6 +180,7 @@ arrayWithRepetition.forEach((value) => {
 
 // Función que se ejecuta al hacer clic en el botón de consulta
 function onClickConsulta() {
+    var fh = new Date();
     inHTML('loadTable', ""); // Limpia la tabla HTML
     var diaIni = value("diaIni"); // Obtiene el día de inicio
     var mesIni = value("mesIni"); // Obtiene el mes de inicio
@@ -211,7 +204,7 @@ function onClickConsulta() {
         if (mesIni != mesFin) {
             // Ciclo para el mes inicial
             for (let i = diaIni; i <= consulta1.length; i++) {
-                var reference = db.ref(`registros/${i}-${mesIni}/`);
+                var reference = db.ref(`registros/${i}-${mesIni}-${fh.getFullYear()}/`);
                 reference.on('value', function (datas) {
                     var data = datas.val();
                     $.each(data, function (nodo, value) {
@@ -223,7 +216,7 @@ function onClickConsulta() {
             }
             // Ciclo para el mes final
             for (let j = 0; j <= diaFin; j++) {
-                var reference = db.ref(`registros/${j}-${mesFin}/`);
+                var reference = db.ref(`registros/${j}-${mesFin}-${fh.getFullYear()}/`);
                 reference.on('value', function (datas) {
                     var data = datas.val();
                     $.each(data, function (nodo, value) {
@@ -236,7 +229,7 @@ function onClickConsulta() {
         } else {
             // Si el mes de inicio y fin es el mismo
             for (let i = diaIni; i <= diaFin; i++) {
-                var reference = db.ref(`registros/${i}-${mesIni}/`);
+                var reference = db.ref(`registros/${i}-${mesIni}-${fh.getFullYear()}/`);
                 reference.on('value', function (datas) {
                     var data = datas.val();
                     $.each(data, function (nodo, value) {
@@ -263,9 +256,10 @@ function onClickConsulta() {
 
 //Funcion para generar las tablas de cada mes
 function generarTablaConsultas(mes){
+    var fh = new Date();
     const arrMes = new Array(31); // Crea un arreglo para el mes (31 días)
     for (let i = 0; i <= arrMes.length; i++) {
-        var reference = db.ref(`registros/${i}-`+mes+`/`);
+        var reference = db.ref(`registros/${i}-`+mes+`-${fh.getFullYear()}/`);
         reference.on('value', function (datas) {
             var data = datas.val();
             $.each(data, function (nodo, value) {

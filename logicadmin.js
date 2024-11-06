@@ -23,14 +23,6 @@ function dateActuality(){
     var fh = new Date();
     return fh.getDate()+"-"+(fh.getMonth()+1)+"-"+fh.getFullYear();
 }
-function dateActuali(){
-    var fh = new Date();
-    return fh.getHours()+":"+fh.getMinutes()+"   "+fh.getDate()+"-"+(fh.getMonth()+1)+"-"+fh.getFullYear();
-}
-function dateActualityReg(){
-    var fh = new Date();
-    return fh.getDate()+"-"+(fh.getMonth()+1);
-}
 function hourReg(){
     var fh = new Date();
     return fh.getHours()+":"+fh.getMinutes();
@@ -120,7 +112,7 @@ async function insertReg() {
     const asistencia = 0;
     const descuentoAplicado = (area === 'Practicante' || area === 'Visitante') ? 0 : descuento;
 
-    await db.ref('registros/' + dia + '-' + mes + '/' + i--).set({
+    await db.ref('registros/' + dia + '-' + mes + '-' + fh.getFullYear() + '/' + i--).set({
         user,
         nombre,
         area,

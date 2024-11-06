@@ -35,7 +35,7 @@ function removeReg(date, nombre){
     // Dividir la cadena para obtener la parte de la fecha
     let dateId = date.split(" ")[3];
     // Dividir la fecha para obtener solo el día y el mes
-    let diaMes = dateId.split("-").slice(0, 2).join("-"); // Esto obtiene
+    //let diaMes = dateId.split("-").slice(0, 2).join("-");
     //console.log(diaMes);
     if(confirm("¿Desea eliminar el registro de "+nombre+"?")){
         inHTML("loadTable","");

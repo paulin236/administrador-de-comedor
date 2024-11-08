@@ -352,36 +352,34 @@ function onclickDiciembre(){
     generarTablaConsultas(12);
 }
 
-function exportTableToExcel(tableID, filename = ''){
-    var downloadLink;
-    var dataType = 'application/vnd.ms-excel';
-    var tableSelect = document.getElementById(tableID);
-    var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
-    
-    // nombre de archivo
-    filename = filename?filename+'.xls':'excel_data.xls';
-    
-    // referencia agregada
-    downloadLink = document.createElement("a");
-    
-    document.body.appendChild(downloadLink);
-    
-    if(navigator.msSaveOrOpenBlob){
-        var blob = new Blob(['\ufeff', tableHTML], {
-            type: dataType
-        });
-        navigator.msSaveOrOpenBlob( blob, filename);
-    }else{
-        // link de archivo
-        downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
-    
-        //el nombre archivo a link
-        downloadLink.download = filename;
-        
-        //ejecutando la descarga
-        downloadLink.click();
-    }
+function exportTableToExcel(tableID, filename = '') {
+    const table = document.getElementById(tableID);
+    const rows = table.querySelectorAll('tr');
+    let csvContent = "";
+
+    // Recorremos cada fila de la tabla para construir el contenido en formato CSV
+    rows.forEach(row => {
+        const cells = row.querySelectorAll('th, td');
+        const rowData = Array.from(cells).map(cell => cell.innerText).join(',');
+        csvContent += rowData + '\n';
+    });
+
+    // Crear un Blob con el contenido CSV
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const downloadLink = document.createElement("a");
+
+    // Crear el enlace de descarga
+    const url = URL.createObjectURL(blob);
+    downloadLink.href = url;
+    downloadLink.download = filename ? filename + '.csv' : 'Reporte_del_comedor.csv';
+
+    // Simular clic en el enlace de descarga
+    downloadLink.click();
+
+    // Liberar el objeto URL
+    URL.revokeObjectURL(url);
 }
+
 //Ordenar celdas
 var getCellValue = function(tr, idx){ return tr.children[idx].innerText || tr.children[idx].textContent; }
 

@@ -173,8 +173,8 @@ arrayWithRepetition.forEach((value) => {
         celdas[6].innerHTML = resultadoMultiplicacionCos.toFixed(2);
         celdas[8].innerHTML = resultadoTotal.toFixed(2);
     }
-    /*removeDuplicateRowsByNombre();
-    numerar();*/
+    removeDuplicateRowsByNombre();
+    numerar();
 }
 
 

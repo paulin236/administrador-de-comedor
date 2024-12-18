@@ -180,78 +180,89 @@ arrayWithRepetition.forEach((value) => {
 
 // Función que se ejecuta al hacer clic en el botón de consulta
 function onClickConsulta() {
-    var fh = new Date();
+    const fh = new Date();
+    const year = fh.getFullYear(); // Año actual
     inHTML('loadTable', ""); // Limpia la tabla HTML
-    var diaIni = value("diaIni"); // Obtiene el día de inicio
-    var mesIni = value("mesIni"); // Obtiene el mes de inicio
-    var diaFin = value("diaFin"); // Obtiene el día de fin
-    var mesFin = value("mesFin"); // Obtiene el mes de fin
 
-    const consulta1 = new Array(32); // Crea un arreglo para almacenar hasta 31 días
+    const diaIni = parseInt(value("diaIni"), 10); // Día de inicio
+    const mesIni = parseInt(value("mesIni"), 10); // Mes de inicio
+    const diaFin = parseInt(value("diaFin"), 10); // Día de fin
+    const mesFin = parseInt(value("mesFin"), 10); // Mes de fin
 
-    // Valida que los campos no estén vacíos y que los días ingresados sean válidos
-    if (diaIni.length == 0 || diaIni >= 32 || mesIni.length == 0 || diaFin.length == 0 || diaFin >= 32 || mesFin.length == 0) {
-        update.disabled = false;
-        asignation("diaIni", ""); // Reinicia el valor del campo de día de inicio
-        asignation("mesIni", ""); // Reinicia el valor del campo de mes de inicio
-        asignation("diaFin", ""); // Reinicia el valor del campo de día de fin
-        asignation("mesFin", ""); // Reinicia el valor del campo de mes de fin
-        alert("Favor de completar los campos solicitados con información correcta");
-        inHTML('loadTable', ""); // Limpia la tabla
-    } else {
-        inHTML('loadTable', ""); // Limpia la tabla de nuevo
-        // Verifica si los meses de inicio y fin son diferentes
-        if (mesIni != mesFin) {
-            // Ciclo para el mes inicial
-            for (let i = diaIni; i <= consulta1.length; i++) {
-                var reference = db.ref(`registros/${i}-${mesIni}-${fh.getFullYear()}/`);
-                reference.on('value', function (datas) {
-                    var data = datas.val();
-                    $.each(data, function (nodo, value) {
-                        var sendData = table(value.user, value.nombre, value.area, value.date, value.descuento, value.costo, '0', '0', nodo);
-                        printHTML('loadTable', sendData);
-                        numerar();
-                    });
-                });
-            }
-            // Ciclo para el mes final
-            for (let j = 0; j <= diaFin; j++) {
-                var reference = db.ref(`registros/${j}-${mesFin}-${fh.getFullYear()}/`);
-                reference.on('value', function (datas) {
-                    var data = datas.val();
-                    $.each(data, function (nodo, value) {
-                        var sendData = table(value.user, value.nombre, value.area, value.date, value.descuento, value.costo, '0', '0', nodo);
-                        printHTML('loadTable', sendData);
-                        numerar();
-                    });
-                });
-            }
-        } else {
-            // Si el mes de inicio y fin es el mismo
-            for (let i = diaIni; i <= diaFin; i++) {
-                var reference = db.ref(`registros/${i}-${mesIni}-${fh.getFullYear()}/`);
-                reference.on('value', function (datas) {
-                    var data = datas.val();
-                    $.each(data, function (nodo, value) {
-                        var sendData = table(value.user, value.nombre, value.area, value.date, value.descuento, value.costo, '0', '0', nodo);
-                        printHTML('loadTable', sendData);
-                        numerar();
-                    });
-                });
-            }
-        }
-        update.disabled = false; // Habilita la actualización
-        asignation("diaIni", ""); // Reinicia el día de inicio
-        asignation("mesIni", ""); // Reinicia el mes de inicio
-        asignation("diaFin", ""); // Reinicia el día de fin
-        asignation("mesFin", ""); // Reinicia el mes de fin
-        alert("Consulta realizada con éxito");
-
-        // Activa el botón para generar reporte después de realizar la consulta
-        const button = document.getElementById('generateReportButton');
-        button.disabled = false;
-        button.textContent = 'Generar reporte';
+    // Validar entradas
+    if (
+        isNaN(diaIni) || diaIni <= 0 || diaIni > 31 ||
+        isNaN(mesIni) || mesIni <= 0 || mesIni > 12 ||
+        isNaN(diaFin) || diaFin <= 0 || diaFin > 31 ||
+        isNaN(mesFin) || mesFin <= 0 || mesFin > 12
+    ) {
+        alert("Favor de completar los campos solicitados con información válida");
+        asignation("diaIni", "");
+        asignation("mesIni", "");
+        asignation("diaFin", "");
+        asignation("mesFin", "");
+        return;
     }
+
+    // Función para consultar un rango de días dentro de un mes específico
+    const consultarDias = (diaInicio, diaFinal, mes) => {
+        for (let dia = diaInicio; dia <= diaFinal; dia++) {
+            const referencia = db.ref(`registros/${dia}-${mes}-${year}/`);
+            referencia.on('value', (snapshot) => {
+                const datos = snapshot.val();
+                if (datos) {
+                    $.each(datos, (nodo, value) => {
+                        const sendData = table(
+                            value.user,
+                            value.nombre,
+                            value.area,
+                            value.date,
+                            value.descuento,
+                            value.costo,
+                            '0',
+                            '0',
+                            nodo
+                        );
+                        printHTML('loadTable', sendData);
+                        numerar();
+                    });
+                }
+            });
+        }
+    };
+
+    // Lógica para diferentes casos de consulta
+    if (mesIni === mesFin) {
+        // Si el mes de inicio y fin es el mismo
+        consultarDias(diaIni, diaFin, mesIni);
+    } else if (mesIni < mesFin) {
+        // Si los meses son diferentes
+        // Consultar desde el día inicial hasta el fin del mes inicial
+        consultarDias(diaIni, 31, mesIni);
+
+        // Consultar para todos los días intermedios de los meses entre mesIni y mesFin
+        for (let mes = mesIni + 1; mes < mesFin; mes++) {
+            consultarDias(1, 31, mes);
+        }
+
+        // Consultar desde el inicio del mes final hasta el día final
+        consultarDias(1, diaFin, mesFin);
+    } else {
+        alert("El mes de inicio no puede ser mayor al mes de fin.");
+        return;
+    }
+
+    // Restablecer valores y notificar éxito
+    asignation("diaIni", "");
+    asignation("mesIni", "");
+    asignation("diaFin", "");
+    asignation("mesFin", "");
+    alert("Consulta realizada con éxito");
+
+    // Habilitar botón para generar reporte
+    const button = document.getElementById('generateReportButton');
+    button.disabled = false;
+    button.textContent = 'Generar reporte';
 }
 
 //Funcion para generar las tablas de cada mes

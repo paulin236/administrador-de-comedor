@@ -219,7 +219,7 @@ function onClickConsulta() {
                             value.date,
                             value.descuento,
                             value.costo,
-                            '0',
+                            '1',
                             '0',
                             nodo
                         );
@@ -274,7 +274,7 @@ function generarTablaConsultas(mes){
         reference.on('value', function (datas) {
             var data = datas.val();
             $.each(data, function (nodo, value) {
-                var sendData = table(value.user, value.nombre, value.area, value.date, value.descuento, value.costo, '0', '0', nodo);
+                var sendData = table(value.user, value.nombre, value.area, value.date, value.descuento, value.costo, '1', '0', nodo);
                 printHTML('loadTable', sendData);
                 numerar();
             });
